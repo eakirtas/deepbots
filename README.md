@@ -1,57 +1,57 @@
 # deepbots
 
-Deepbots it is a simple framework which is used as "middleware" between
-[webots](https://cyberbotics.com/) robot simulator and Reinforcement learning
+Deepbots is a simple framework which is used as "middleware" between the
+[Webots](https://cyberbotics.com/) robot simulator and Reinforcement Learning
 algorithms. When in comes to Reinforcement Learning the [OpenAI
-gym](https://gym.openai.com/) environment have been established as the interface
-between the actual application and the RL algorithm. Deepbots is this framework
-which follows the OpenAI Gym environment interface in order to be used by
-webots applications. 
+gym](https://gym.openai.com/) environment has been established as the most used 
+interface between the actual application and the RL algorithm. Deepbots is a 
+framework which follows the OpenAI gym environment interface in order to be 
+used by Webots applications. 
 
 ## How it works? 
 
 First of all let's set up a simple glossary:
 
-+ Supervisor: Webots use tree structure to represent the different entities
-  of the world. Supervisor is that entity which has access to all entities of
-  the world while has not mass or any "physical" property. For example,
-  supervisor knows the exact position of all entities of the world.
-  Additionally, Supervisor has some children nodes one of them is the Supervisor
-  Controller.
++ World: Webots uses a tree structure to represent the different entities
+  in the scene. The World is the root entity which contains all the entities/nodes. 
+  For example, the world contains the Supervisor and Robot entities as well as 
+  other objects which might be included in the scene. 
   
-+ Supervisor Controller: is this python script which is responsible about
-  supervisor. For example, in Supervisor Controller script we can access the
-  distance between two entities in the world. 
++ Supervisor: The Supervisor is an entity which has access to all other entities
+  of the world, while having no physical presence in it. For example,
+  the Supervisor knows the exact position of all the entities of the world and
+  can manipulate them. Additionally, the Supervisor has the Supervisor 
+  Controller as one of its child nodes.
+  
++ Supervisor Controller: The Supervisor Controller is a python script which is 
+  responsible for the Supervisor. For example, in the Supervisor Controller 
+  script the distance between two entities in the world can be calculated. 
 
-+ Robot: is this entity in tree that represent a robot in the world. Robot may
-  have sensors as children entities. Another children of Robot is the Robot
-  Controller In additions, robots has active components like motors, joints etc.
-  For example,[epuck](https://cyberbotics.com/doc/guide/epuck) and
-  [TIAGo](https://cyberbotics.com/doc/guide/tiago-iron) are robots. 
++ Robot: The Robot is an entity that represents a robot in the world. 
+  It might have sensors and other active components, like motors, etc. 
+  as child entities. Also, one of its children is the Robot Controller.
+  For example, [epuck](https://cyberbotics.com/doc/guide/epuck) and
+  [TIAGo](https://cyberbotics.com/doc/guide/tiago-iron) are robots.
   
-+ Robot Controller: is this python script which is responsible for Robot's
-  movement and sensors. For example, with Robot Controller it is feasible to
-  observe the world and act accordingly. 
++ Robot Controller: The Robot Controller is a python script which is responsible 
+  for the Robot's movement and sensors. With the Robot Controller 
+  it is possible to observe the world and act accordingly. 
   
-+ World: Is the root entity which contains all entities/nodes. For example,
-  world contains the supervisor and robot entity as well as objects which might
-  be included in the scene. 
-  
-+ Environment: The environment is the interface as described by the OpenAI gym.
-  The environment interface has the following method:
++ Environment: The Environment is the interface as described by the OpenAI gym.
+  The Environment interface has the following methods:
   
       + get_observations(): Return the observations of the robot. For example, metrics from
-        sensors, camera image etc.
+        sensors, a camera image etc.
 
-      + step(action): Each timestep, the agent choose an action, and the environment returns
+      + step(action): Each timestep, the agent chooses an action, and the environment returns
         the observation, the reward and the state of the problem (done or not).
 
-      + get_reward(action): The reward the agent receives as result to their
+      + get_reward(action): The reward the agent receives as result of their
         action.
         
-      + is_done(): Returns true if the task have been solved. 
+      + is_done(): Returns true if the task has been solved. 
       
-      + reset(): Used to reset the world in the initial state.
+      + reset(): Used to reset the world to the initial state.
 
 
  
