@@ -101,3 +101,19 @@ does.
     <img src="./doc/img/workflow_diagram.png">
 </p>
 
+### Abstraction Levels
+
+Deepbots framework have been created mostly for educational proposals. The aim
+of the framework is to make easier Deep Learning implementations in webots.
+Specifically, we can consider deepbots as an wrapper among webots and OpenAI gym
+interface. For this reason there are multiple levels of abstraction. For
+example, user can choose if they want to use CSV emitter/receiver or if they
+want to make a from "scratch" implementation. In the top level of the
+abstraction hierarchy is the `SupervisorEnv` which is the OpenAI gym interface.
+Below that level are the actual implementation. Those implementation aims to
+hide the communication between `Supervisor` and `Robot`. On the other hand, the
+`Robot` has also different abstraction levels. According to their needs, user
+can choose either to process from scratch the messages which is receiver from
+the supervisor or use the existing implementations.
+
+
