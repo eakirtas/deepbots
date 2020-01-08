@@ -8,7 +8,7 @@ interface between the actual application and the RL algorithm. Deepbots is a
 framework which follows the OpenAI gym environment interface in order to be 
 used by Webots applications. 
 
-## How it works? 
+## How it works
 
 First of all let's set up a simple glossary:
 
