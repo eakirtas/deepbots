@@ -103,7 +103,7 @@ can calculate it, because it has access to all entities in the World.
 ### Abstraction Levels
 
 The deepbots framework has been created mostly for educational purposes. The aim
-of the framework is to enable people to use Deep Learning in Webots.
+of the framework is to enable people to use Reinforcement Learning in Webots.
 More specifically, we can consider deepbots as a wrapper of Webots exposing an 
 OpenAI gym style interface. For this reason there are multiple levels of abstraction. For
 example, a user can choose if they want to use CSV emitter/receiver or if they
