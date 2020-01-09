@@ -2,66 +2,65 @@
 
 Deepbots is a simple framework which is used as "middleware" between the
 [Webots](https://cyberbotics.com/) robot simulator and Reinforcement Learning
-algorithms. When in comes to Reinforcement Learning the [OpenAI
+algorithms. When it comes to Reinforcement Learning the [OpenAI
 gym](https://gym.openai.com/) environment has been established as the most used 
 interface between the actual application and the RL algorithm. Deepbots is a 
-framework which follows the OpenAI gym environment interface in order to be 
-used by Webots applications. 
+framework which follows the OpenAI gym environment interface logic in order to 
+be used by Webots applications. 
 
 ## How it works
 
 First of all let's set up a simple glossary:
 
-+ `Supervisor`: Webots use tree structure to represent the different entities
-  of the world. Supervisor is that entity which has access to all entities of
-  the world while has not mass or any "physical" property. For example,
-  supervisor knows the exact position of all entities in the world.
-  Additionally, Supervisor has children nodes, one of them is the Supervisor
-  Controller.
++ `World`: Webots uses a tree structure to represent the different entities
+  in the scene. The World is the root entity which contains all the entities/nodes. 
+  For example, the world contains the Supervisor and Robot entities as well as 
+  other objects which might be included in the scene. 
   
-+ `Supervisor Controller`: is this python script which is responsible about
-  supervisor. For example, in Supervisor Controller script we can access the
-  distance between two entities in the world. 
-
-+ `Robot`: is this entity in tree that represent a robot in the world. Robot may
-  have sensors as children entities. Another children of Robot is the Robot
-  Controller. In addition, robots has active components like motors, joints etc.
++ `Supervisor`: The Supervisor is an entity which has access to all other entities
+  of the world, while having no physical presence in it. For example,
+  the Supervisor knows the exact position of all the entities of the world and
+  can manipulate them. Additionally, the Supervisor has the Supervisor 
+  Controller as one of its child nodes.
+  
++ `Supervisor Controller`: The Supervisor Controller is a python script which is 
+  responsible for the Supervisor. For example, in the Supervisor Controller 
+  script the distance between two entities in the world can be calculated. 
+  
++ `Robot`: The Robot is an entity that represents a robot in the world. 
+  It might have sensors and other active components, like motors, etc. 
+  as child entities. Also, one of its children is the Robot Controller.
   For example, [epuck](https://cyberbotics.com/doc/guide/epuck) and
-  [TIAGo](https://cyberbotics.com/doc/guide/tiago-iron) are robots. 
+  [TIAGo](https://cyberbotics.com/doc/guide/tiago-iron) are robots.
   
-+ `Robot Controller`: The Robot Controller is a python script which is
-  responsible for Robot's movement and sensors. With Robot
-  Controller it is feasible to observe the world and act accordingly. 
-  
-+ `World`: Is the root entity which contains all entities/nodes. For example,
-  world contains the supervisor and robot entity as well as objects which might
-  be included in the scene. 
-  
++ `Robot Controller`: The Robot Controller is a python script which is 
+  responsible for the Robot's movement and sensors. With the Robot Controller 
+  it is possible to observe the world and act accordingly. 
+    
 + `Environment`: The Environment is the interface as described by the OpenAI gym.
   The Environment interface has the following methods:
   
   + `get_observations()`: Return the observations of the robot. For example, metrics from
     sensors, a camera image etc.
 
-  + `step(action)`: Each time step, the agent chooses an action, and the
-     environment returns the observation, the reward and the state of the
-     problem (done or not). 
+  + step(action): Each timestep, the agent chooses an action, and the environment returns
+    the observation, the reward and the state of the problem (done or not).
 
-  + `get_reward(action)`: The reward that the agent receives as result of their
+  + `get_reward(action)`: The reward the agent receives as a result of their
      action.
         
-  + `is_done()`: whether it’s time to reset the environment again. Most (but
+  + `is_done()`: Whether it’s time to reset the environment. Most (but
      not all) tasks are divided up into well-defined episodes, and done being
      True indicates the episode has terminated. For example, if a robot has
-     the task to reach a goal, then the done might be happen when the robot
-     "touch" the goal. 
+     the task to reach a goal, then the done condition might happen when the 
+     robot "touches" the goal. 
         
   + `reset()`: Used to reset the world to the initial state.
 
-In order to set up a task in Deepbots is necessary to understand intention of
-the OpenAI gym shared environment. According to OpenAI gym documentation, the
-framework follows the classic “agent-environment loop”. "Each time step, the
-agent chooses an action, and the environment returns an `observation` and a
+In order to set up a task in Deepbots it is necessary to understand the intention 
+of the OpenAI gym environment. According to the OpenAI gym documentation, the
+framework follows the classic “agent-environment loop”. "Each timestep, the
+agent chooses an `action`, and the environment returns an `observation` and a
 `reward`. The process gets started by calling `reset()`, which returns an initial
 `observation`." 
 
@@ -69,33 +68,33 @@ agent chooses an action, and the environment returns an `observation` and a
     <img src="./doc/img/agent_env_loop.svg">
 </p>
 
-Deepbots follows this exact same agent-environment loop with only difference
-that the agent, which is responsible to choose the action, runs on supervisor
-and the observations are received by robot. The goal of deepbots framework is to
-hide this communication to the user, especially to those who are familiar with
-the OpenAI gym. More specific, `SupervisorEnv` is the interface which is used
-from Reinforcement Learning algorithms and follows the OpenAI Gym environment.
-Deepbots frameworks provides different levels of abstraction according to the
-user need. On the other hand, goal of the framework is to provide different
-wrappers for a great amount of robots. Currently, the communication between
-`Supervisor` and `Robot` is achieved via `emitter` and `receiver`. 
+Deepbots follows this exact agent-environment loop with the only difference being
+that the agent, which is responsible to choose an action, runs on the Supervisor
+and the observations are acquired by the robot. The goal of the deepbots framework 
+is to hide this communication from the user, especially from those who are familiar with
+the OpenAI gym environment. More specifically, `SupervisorEnv` is the interface 
+which is used by the Reinforcement Learning algorithms and follows the OpenAI Gym 
+environment logic. The Deepbots framework provides different levels of abstraction 
+according to the user's needs. Moreover, a goal of the framework is to 
+provide different wrappers for a wide range of robots. Currently, the communication 
+between the `Supervisor` and the `Robot` is achieved via an `emitter` and a `receiver`. 
 
 <p align="center">
     <img src="./doc/img/deepbots_overview.png">
 </p>
 
-Precisely, on one hand `emitter` is the entity, which is provided by webots,
-that broadcasts a message to the world. On the other hand, `receiver` is
-the entity that is used to receive the messages came from the world.
+On one hand, the `emitter` is an entity, which is provided by Webots,
+that broadcasts messages to the world. On the other hand, the `receiver` is
+an entity that is used to receive messages from the world.
 Consequently, the agent-environment loop is transformed accordingly. Firstly,
-Robot uses their sensors to retrieve observation from the worlds and in turn
-uses the emitter component to broadcast those observation. Secondly, Supervisor
-receives the observations via receiver component and in turn, agent uses them to
-choose a action. It should be noted that the observation agents uses might be
-extended from the supervisor. For example, a model uses lidar sensors from the
-robot but also the euclidean distance between robot and an object. As it is
-expected, the robot does not know the euclidean distance, only supervisors
-does. 
+the Robot uses its sensors to retrieve the observation from the World and in turn
+uses the emitter component to broadcast this observation. Secondly, the Supervisor
+receives the observation via the receiver component and in turn, the agent uses it to
+choose an action. It should be noted that the observation the agent uses might be
+extended from the supervisor. For example, a model might use lidar sensors installed on 
+the Robot, but also the euclidean distance between the Robot and an object. As it is
+expected, the Robot does not know the euclidean distance, only the Supervisor
+can calculate it, because it has access to all entities in the World.
 
 <p align="center">
     <img src="./doc/img/workflow_diagram.png">
@@ -103,17 +102,17 @@ does.
 
 ### Abstraction Levels
 
-Deepbots framework have been created mostly for educational proposals. The aim
-of the framework is to make easier Deep Learning implementations in webots.
-Specifically, we can consider deepbots as an wrapper among webots and OpenAI gym
-interface. For this reason there are multiple levels of abstraction. For
-example, user can choose if they want to use CSV emitter/receiver or if they
-want to make a from "scratch" implementation. In the top level of the
+The deepbots framework has been created mostly for educational purposes. The aim
+of the framework is to enable people to use Deep Learning in Webots.
+More specifically, we can consider deepbots as a wrapper of Webots exposing an 
+OpenAI gym style interface. For this reason there are multiple levels of abstraction. For
+example, a user can choose if they want to use CSV emitter/receiver or if they
+want to make a from scratch implementation. In the top level of the
 abstraction hierarchy is the `SupervisorEnv` which is the OpenAI gym interface.
-Below that level are the actual implementation. Those implementation aims to
-hide the communication between `Supervisor` and `Robot`. On the other hand, the
-`Robot` has also different abstraction levels. According to their needs, user
-can choose either to process from scratch the messages which is receiver from
-the supervisor or use the existing implementations.
+Below that level there is an actual implementation. This implementation aims to
+hide the communication between the `Supervisor` and the `Robot`. Similarly, the
+`Robot` also has different abstraction levels. According to their needs, users
+can choose either to process the messages received from the Supervisor themselves 
+or use the existing implementations.
 
 
