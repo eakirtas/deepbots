@@ -1,9 +1,9 @@
 name: Publish Python on TestPyPi
 
 on:
-  release:
+  push:
     tags:
-      -'refs/tags/v*-pre'
+      - 'v*-pre'
 
 jobs:
   build-n-publish:
@@ -28,7 +28,6 @@ jobs:
         # if: startsWith(github.event.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
         with:
-          user: __token__
           pass: ${{ secrets.pypi_test_password }}
           repository_url: https://test.pypi.org/legacy/
 
