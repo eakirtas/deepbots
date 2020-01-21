@@ -1,9 +1,9 @@
 name: Publish Python on TestPyPi
 
 on:
-  release:
+  push:
     tags:
-      -'refs/tags/v*-pre'
+      - 'v*-pre'
 
 jobs:
   build-n-publish:
