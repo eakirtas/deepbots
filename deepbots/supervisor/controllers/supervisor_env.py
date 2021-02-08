@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from controller import Supervisor
 
 
-class SupervisorEnv(ABC):
+class SupiervisorEnv(ABC):
     """
     This class represents the basic template which contains the necessary
     methods to train a reinforcement learning algorithm. The interface class
@@ -26,7 +26,6 @@ class SupervisorEnv(ABC):
     Nevertheless, advanced users can inherit this class to create
     their own supervisor classes if they wish.
     """
-
     def __init__(self):
         self.supervisor = Supervisor()
 
