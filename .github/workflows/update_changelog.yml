@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v2
+        with:
+          ref: dev
 
       - name: Generate changelog
         uses: charmixer/auto-changelog-action@v1.1
@@ -36,4 +38,4 @@ jobs:
           CI_USER: ${{ secrets.AIDUDEZZZ_BOT_USER }}
           CI_TOKEN: ${{ secrets.AIDUDEZZZ_BOT_TOKEN }}
         run: |
-          git push "https://${{ secrets.AIDUDEZZZ_BOT_USER }}:${{ secrets.AIDUDEZZ_BOT_TOKEN }}@github.com/ManosMagnus/deepbots.git" HEAD:dev
+          git push "https://$CI_USER:$CI_TOKEN@github.com/ManosMagnus/deepbots.git" HEAD:dev
