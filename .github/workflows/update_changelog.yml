@@ -36,4 +36,4 @@ jobs:
           CI_USER: ${{ secrets.AIDUDEZZZ_BOT_USER }}
           CI_TOKEN: ${{ secrets.AIDUDEZZZ_BOT_TOKEN }}
         run: |
-          git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:dev
+          git push "https://${{ secrets.AIDUDEZZZ_BOT_USER }}:${{ secrets.AIDUDEZZ_BOT_TOKEN }}@github.com/ManosMagnus/deepbots.git" HEAD:dev
