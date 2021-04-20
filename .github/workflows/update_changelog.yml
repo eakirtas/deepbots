@@ -7,8 +7,8 @@ on:
     types: [published]
 
 jobs:
-  wait_until_finish:
-    name: Wait until closed issue changelog generator finish
+  generate_changelog:
+    name: Update Changelog
     runs-on: ubuntu-latest
     steps:
       - name: Wait until closed issue updade changelog finish
@@ -22,13 +22,9 @@ jobs:
           wait_interval: 10
           inputs: "{}"
           propagate_failure: false
-          trigger_workflow: true
+          trigger_workflow: false
           wait_workflow: true
 
-  generate_changelog:
-    name: Update Changelog
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout dev
         uses: actions/checkout@v2
         with:
@@ -38,6 +34,7 @@ jobs:
         uses: charmixer/auto-changelog-action@v1.1
         with:
           token: ${{ secrets.AIDUDEZZ_BOT_TOKEN }}
+          release_branch: dev
 
       - name: Commit files
         env:
