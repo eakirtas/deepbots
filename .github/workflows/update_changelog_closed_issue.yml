@@ -1,30 +1,13 @@
 name: Generate Changelog
 on:
-  pull_request:
-    types: [closed]
-
-  release:
-    types: [published]
+  issues:
+    types: [closed, edited]
 
 jobs:
   generate_changelog:
     name: Update Changelog
     runs-on: ubuntu-latest
     steps:
-      - name: Wait until closed issue updade changelog finish
-        uses: convictional/trigger-workflow-and-wait@v1.3.0
-        with:
-          owner: aidudezzz
-          repo: deepbots
-          github_token: ${{ secrets.AIDUDEZZ_BOT_TOKEN }}
-          workflow_file_name: update_changelog_closed_issue.yml
-          ref: dev
-          wait_interval: 10
-          inputs: "{}"
-          propagate_failure: false
-          trigger_workflow: true
-          wait_workflow: true
-
       - name: Checkout dev
         uses: actions/checkout@v2
         with:
