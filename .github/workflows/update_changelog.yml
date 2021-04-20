@@ -7,8 +7,8 @@ on:
     types: [published]
 
 jobs:
-  generate_changelog:
-    name: Update Changelog
+  wait_until_finish:
+    name: Wait until closed issue changelog generator finish
     runs-on: ubuntu-latest
     steps:
       - name: Wait until closed issue updade changelog finish
@@ -25,6 +25,10 @@ jobs:
           trigger_workflow: true
           wait_workflow: true
 
+  generate_changelog:
+    name: Update Changelog
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout dev
         uses: actions/checkout@v2
         with:
