@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- \[test \]Another Test issue to remove empty file [\#21](https://github.com/ManosMagnus/deepbots/issues/21)
 - \[test\] remove empty file [\#13](https://github.com/ManosMagnus/deepbots/issues/13)
 - \[test\] Add changelog automation [\#8](https://github.com/ManosMagnus/deepbots/issues/8)
 
