@@ -18,10 +18,6 @@ jobs:
           token: ${{ secrets.AIDUDEZZ_BOT_TOKEN }}
 
       - name: Commit files
-        env: 
-          CI_USER: ${{ secrets.AIDUDEZZZ_BOT_USER }}
-          CI_EMAIL: ${{ secrets.AIDUDEZZZ_BOT_EMAIL }}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         run: |
           git config --local user.email ${{ secrets.AIDUDEZZZ_BOT_EMAIL }}
           git config --local user.name ${{ secrets.AIDUDEZZZ_BOT_USER }}
