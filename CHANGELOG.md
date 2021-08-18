@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Merge to master [\#25](https://github.com/ManosMagnus/deepbots/issues/25)
 - \[Test\] Another test issue [\#23](https://github.com/ManosMagnus/deepbots/issues/23)
 - \[test \]Another Test issue to remove empty file [\#21](https://github.com/ManosMagnus/deepbots/issues/21)
 - \[test\] remove empty file [\#13](https://github.com/ManosMagnus/deepbots/issues/13)
